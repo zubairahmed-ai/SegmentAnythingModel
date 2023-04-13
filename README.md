@@ -1,4 +1,4 @@
-# Python Script for Segment Anything Model
+# Python Script for Facebook Research's Segment Anything Model
 This script uses command line argument to show [Automatically generating object masks with SAM](https://github.com/facebookresearch/segment-anything) with mask generation options support using arguments
 
 ![SAM](https://user-images.githubusercontent.com/1317442/231848591-7cf0f597-4298-4088-961b-8099b6a101b5.png)

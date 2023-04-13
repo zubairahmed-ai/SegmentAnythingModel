@@ -7,6 +7,10 @@ from segment_anything import SamAutomaticMaskGenerator, sam_model_registry
 
 # construct the argument parser and parse the arguments
 ap = argparse.ArgumentParser()
+ap.add_argument("-m", "--model", type=str, default="./models/sam_vit_b_01ec64.pth",
+	help="path to the model")
+ap.add_argument("-mk", "--model_key", type=str, default="vit_b",
+	help="path to the model key required by SAM")
 ap.add_argument("-i", "--image", type=str, default="./images/IMG_2176.jpg",
 	help="path to the input image")
 ap.add_argument("-p", "--points_per_side", type=int, default=32,
@@ -19,7 +23,7 @@ ap.add_argument("-c", "--crop_n_layers", type=int, default=1,
 	help="path to the input image")
 ap.add_argument("-cr", "--crop_n_points_downscale_factor", type=int, default=2,
 	help="path to the input image")
-ap.add_argument("-m", "--min_mask_region_area", type=int, default=100,
+ap.add_argument("-mm", "--min_mask_region_area", type=int, default=100,
 	help="path to the input image")
 args = vars(ap.parse_args())
 
@@ -48,7 +52,7 @@ def show_anns(anns):
             img[:,:,i] = color_mask[i]
         ax.imshow(np.dstack((img, m*0.35)))
 
-sam = sam_model_registry["vit_b"](checkpoint="./models/sam_vit_b_01ec64.pth")
+sam = sam_model_registry[args["model_key"]](checkpoint=args["model"])
 mask_generator = SamAutomaticMaskGenerator(sam, points_per_side=args["points_per_side"],
     pred_iou_thresh=args["pred_iou_thresh"],
     stability_score_thresh=args["stability_score_thresh"],
